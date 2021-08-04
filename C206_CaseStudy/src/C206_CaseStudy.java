@@ -5,12 +5,53 @@ public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		int option = -1;
+		while (option !=5 ) {
+			C206_CaseStudy.mainMenu();
+			option = Helper.readInt("Choose your option > ");
+			if (option == 1) {
+				// User Account
+				C206_CaseStudy.userAcc();
+				
+			}
+			else if (option == 2) {
+				// Category
+				
+			}
+			else if (option == 3) {
+				// Item
+				
+			}
+			else if (option == 4) {
+				// Deal
+				
+			}
+			else {
+				System.out.println("Thank you for visiting Campus Online Auction Shop. Good Bye!");
+			}
+		}
+		
+		
+	}
+	
+	public static void mainMenu() {
+		C206_CaseStudy.setHeader("Campus Online Auction Shop");
+		System.out.println("1. Manage User Account");
+		System.out.println("2. Manage Category");
+		System.out.println("3. Manage Item");
+		System.out.println("4. Manage Deal");
+		System.out.println("5. Exit the program");
+	}
+	
+	public static void userAcc() {
 		ArrayList<UserAccount> userAccList = new ArrayList<UserAccount>();
 
 		userAccList.add(new UserAccount("James", "Admin", "james@rp.edu.sg", "james1234"));
 		userAccList.add(new UserAccount("Sean", "Seller", "sean@rp.edu.sg", "sean12345"));
-
+		
 		int option = -1;
+		
 		while (option != 4) {
 			C206_CaseStudy.menu();
 
@@ -35,7 +76,7 @@ public class C206_CaseStudy {
 			}
 
 			else if (option == 4) {
-				System.out.println("Thank you for using this application. Good Bye!");
+				System.out.println("Exit");
 			}
 
 			else {
@@ -43,9 +84,9 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-
+	
 	public static void menu() {
-		C206_CaseStudy.setHeader("Campus Online Auction Shop");
+		C206_CaseStudy.setHeader("User Account");
 		System.out.println("1. View All User Accounts");
 		System.out.println("2. Add User Account");
 		System.out.println("3. Delete User Account");
@@ -90,7 +131,7 @@ public class C206_CaseStudy {
 		}
 		return rtnVal;
 	}
-
+	
 	// Option 2 = Add User Account
 	public static UserAccount askUserAcc() {
 		String name = Helper.readString("Enter your name > ");
