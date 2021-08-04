@@ -3,6 +3,7 @@ import java.util.ArrayList;
 //Tan Kai Jie Bryan StudentID:20045873
 //Lam Heng Yee, 20014013
 //Wong Mei Yan, 20031018
+//Benjamin Soh, 
 
 public class C206_CaseStudy {
 
@@ -25,6 +26,7 @@ public class C206_CaseStudy {
 
 			} else if (option == 4) {
 				// Deal
+				C206_CaseStudy.Deal();
 
 			} else {
 				System.out.println("Thank you for visiting Campus Online Auction Shop. Good Bye!");
@@ -325,7 +327,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void viewAllItems(ArrayList<Item> itemList) {
-		System.out.println("CAMCORDER LIST");
+		System.out.println("ITEM LIST");
 		String output = String.format("%-10s %-30s %-20s %-20s %-20s %-10s\n", "ITEM NAME", "ITEM DESCRIPTION",
 				"MINIMUM BID PRICE", "AUCTION START DATE", "AUCTION END DATE", "BID INCREMENT");
 		output += retrieveAllItems(itemList);
@@ -375,4 +377,108 @@ public class C206_CaseStudy {
 		}
 	}
 
+	public static void Deal() {
+		ArrayList<Deal> dealList = new ArrayList<Deal>();
+
+		dealList.add(new Deal(1, "pen", "benjamin", "benjamin", 15.85, "26-5-2021"));
+
+		int option = 0;
+
+		while (option != 4) {
+
+			DealMenu();
+			option = Helper.readInt("Enter an option > ");
+
+			if (option == 1) {
+				// View all items
+				C206_CaseStudy.viewAllDeals(dealList);
+
+			} else if (option == 2) {
+				// Add a new item
+				Deal d = inputDeal();
+				C206_CaseStudy.addDeal(dealList, d);
+			} else if (option == 3) {
+				// Delete item
+				C206_CaseStudy.deleteDeal(dealList);
+			} else if (option == 4) {
+				System.out.println("Bye!");
+			} else {
+				System.out.println("Invalid option");
+			}
+
+		}
+
+	}
+
+	public static void DealMenu() {
+		System.out.println("RESOURCE CENTRE APP");
+		Helper.line(80, "-");
+		System.out.println("1. Deals");
+		System.out.println("2. Add deal");
+		System.out.println("3. Delete deal");
+		System.out.println("4. Quit");
+		Helper.line(80, "-");
+
+	}
+
+	public static String retrieveDeals(ArrayList<Deal> dealList) {
+		String output = "";
+		for (int i = 0; i < dealList.size(); i++) {
+			output += String.format("%-10d %-30s %-20s %-20s %-20s %-10s\n", dealList.get(i).getId(),
+					dealList.get(i).getItemname(), dealList.get(i).getSeller(), dealList.get(i).getBuyer(),
+					dealList.get(i).getPrice(), dealList.get(i).getClosedate());
+		}
+		return output;
+	}
+
+	public static void viewAllDeals(ArrayList<Deal> dealList) {
+		System.out.println("DEALLIST");
+		String output = String.format("%-10s %-30s %-20s %-20s\n", "ITEM NAME", "ITEM DESCRIPTION", "BID PRICE",
+				"AUCTION CLOSE DATE");
+		output += retrieveDeals(dealList);
+		System.out.println(output);
+	}
+
+	public static Deal inputDeal() {
+		int id = Helper.readInt("Enter id > ");
+		String itemName = Helper.readString("Enter item Name > ");
+		String seller = Helper.readString("Enter Seller name > ");
+		String buyer = Helper.readString("Enter Buyer name > ");
+		double Price = Helper.readDouble("Enter price> ");
+		String CloseDate = Helper.readString("Enter date (dd-mm-yyyy)> ");
+
+		Deal d = new Deal(id, itemName, seller, buyer, Price, CloseDate);
+		return d;
+
+	}
+
+	public static void addDeal(ArrayList<Deal> dealList, Deal d) {
+		dealList.add(d);
+		System.out.println("deal added");
+	}
+
+	public static boolean deleteDeal(ArrayList<Deal> dealList, int id) {
+		// write your code here
+		boolean isDeleted = false;
+
+		for (int i = 0; i < dealList.size(); i++) {
+			if (dealList.get(i).getId() == id) {
+				isDeleted = true;
+
+			}
+		}
+		return isDeleted;
+
+	}
+
+	public static void deleteDeal(ArrayList<Deal> dealList) {
+		// write your code here
+		int id = Helper.readInt("Enter item id > ");
+		Boolean isDeleted = deleteDeal(dealList, id);
+		if (isDeleted == false) {
+			System.out.println("Invalid item id");
+		} else {
+			System.out.println("Item " + id + " has been deleted");
+		}
+	}
 }
