@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 //Lam Heng Yee, 20014013
+//Wong Mei Yan, 20031018
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class C206_CaseStudy {
 			}
 			else if (option == 2) {
 				// Category
-				
+				C206_CaseStudy.category();
 			}
 			else if (option == 3) {
 				// Item
@@ -53,7 +54,7 @@ public class C206_CaseStudy {
 		int option = -1;
 		
 		while (option != 4) {
-			C206_CaseStudy.menu();
+			C206_CaseStudy.userAccMenu();
 
 			option = Helper.readInt("Enter an option > ");
 			if (option == 1) {
@@ -85,7 +86,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	public static void menu() {
+	public static void userAccMenu() {
 		C206_CaseStudy.setHeader("User Account");
 		System.out.println("1. View All User Accounts");
 		System.out.println("2. Add User Account");
@@ -177,5 +178,98 @@ public class C206_CaseStudy {
 			System.out.println("Please re-enter the email of the user that you would like to delete");
 		}
 	}
+	
+	public static void category() {
+		ArrayList<Category> CategoryList = new ArrayList<Category>();
+
+		CategoryList.add(new Category("Books"));
+		CategoryList.add(new Category("CDs"));
+
+		int option = 0;
+
+		while (option != 4) {
+
+			C206_CaseStudy.CategoryMenu();
+			option = Helper.readInt("Enter an option > ");
+
+			if (option == 1) {
+				// View all items
+				C206_CaseStudy.viewAllCategory(CategoryList);
+
+			} else if (option == 2) {
+				// Add a new category
+				addCategory(CategoryList, inputCategory());
+
+			} else if (option == 3) {
+				// Delete item
+				deleteCategory(CategoryList);
+			} else if (option == 4) {
+
+				System.out.println("Bye!");
+			} else {
+				System.out.println("Invalid option");
+			}
+		}
+	}
+	
+	// View all category
+		public static String retrieveAllCategory(ArrayList<Category> CategoryList) {
+			String output = "";
+
+			for (int i = 0; i < CategoryList.size(); i++) {
+
+				output += String.format("%s. %s\n", (i +1),CategoryList.get(i).getName());
+			}
+			return output;
+		}
+
+		public static void CategoryMenu() {
+
+			Helper.line(30, "=");
+			System.out.println("CATEGORY MANAGER");
+			Helper.line(30, "-");
+			System.out.println("1. View all Category");
+			System.out.println("2. Add Category");
+			System.out.println("3. Delete Category");
+			System.out.println("4. Quit");
+			Helper.line(30, "=");
+		}
+
+		public static void viewAllCategory(ArrayList<Category> CategoryList) {
+			Helper.line(30, "=");
+			String output = String.format("%-10s\n", "CATEGORY NAME");
+			Helper.line(30, "=");
+			output += retrieveAllCategory(CategoryList);
+			System.out.println(output);
+		}
+
+		// Add Category
+		public static Category inputCategory() {
+			String name = Helper.readString("Enter name > ");
+
+			Category c = new Category(name);
+			return c;
+
+		}
+
+		public static void addCategory(ArrayList<Category> CategoryList, Category c) {
+
+			CategoryList.add(c);
+			System.out.println("Category added");
+		}
+
+		// Delete Category
+		public static void deleteCategory(ArrayList<Category> CategoryList) {
+
+			String delete = Helper.readString("Enter category name to delete > ");
+			for (int i = 0; i < CategoryList.size(); i++) {
+				if (delete.equalsIgnoreCase(CategoryList.get(i).getName())) {
+					CategoryList.remove(i);
+					System.out.println("Delete successfully");
+					break;
+
+				}
+			}
+		}
 
 }
